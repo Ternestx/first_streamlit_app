@@ -42,7 +42,7 @@ try:
 except URLError as e:
   streamlit.stop()
 
-streamlit.header("The fruit load list contains:")
+streamlit.header("View Our Fruit List - Ad Your Favorites!")
 def get_fruit_load_list():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
@@ -51,6 +51,7 @@ def get_fruit_load_list():
 if streamlit.button('Get Fruit Load List'):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   my_data_rows = get_fruit_load_list()
+  my_cnx.close()
   streamlit.dataframe(my_data_rows)
 
 #New Section to display fruityvice api response
